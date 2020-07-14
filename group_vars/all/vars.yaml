@@ -1,0 +1,23 @@
+---
+# SSH
+ssh_public_key_files:
+  - ~/.ssh/id_rsa.pub
+
+# firewalld
+private_network_subnet: "10.0.0.0/16"
+whitelisted_ips:
+  - "<your ip>/32"
+open_services:
+  - ssh
+  - http
+  - https
+
+# Email
+admin_email: <sender email address from which the server will send alerts/notifications>
+notifications_email: <your email address>
+
+# Fail2ban
+fail2ban_sender: <sender address for Fail2ban notifications>
+fail2ban_ignoreips:
+  - <your ip>
+fail2ban_destemail: <your email address>
