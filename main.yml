@@ -1,0 +1,21 @@
+---
+- import_tasks: networking.yaml
+  tags: bootstrap-network
+
+- import_tasks: update_system.yml
+  tags: bootstrap-update-system
+
+- import_tasks: essential-packages.yml
+  tags: bootstrap-packages
+
+- import_tasks: networking.yaml
+  tags: bootstrap-packages
+
+- import_tasks: kubernetes.yaml
+  tags: bootstrap-kubernetes
+
+- import_tasks: firewall.yaml
+  tags: bootstrap-firewall
+
+- import_tasks: swap.yaml
+  tags: bootstrap-swap

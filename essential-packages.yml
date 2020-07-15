@@ -1,0 +1,25 @@
+---
+- name: add apt-key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+- name: add apt-key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+- name: add repository for docker
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+    state: present
+- name: add repository for kubernetes
+  apt_repository:
+    repo: deb http://packages.cloud.google.com/apt/ kubernetes-xenial main
+    state: present
+- name: Install essential packages
+  apt:
+    pkg:
+    - htop
+    - vim
+    - wget
+    - curl
+    - mc

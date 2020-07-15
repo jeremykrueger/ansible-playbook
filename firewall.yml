@@ -1,0 +1,22 @@
+- name: Install packages
+  apt:
+    pkg:
+    - firewalld
+- name: allow ssh
+  firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+- name: allow required kubernetes ports
+  firewalld:
+    port: {{ port }}
+    permanent: yes
+    state: enabled
+  loop:
+    - 6443/tcp # Kubernetes API Server
+    - 2379-2380/tcp # etcd server client API
+    - 10250/tcp # Kubelet API
+    - 10251/tcp # kube-scheduler
+    - 10252/tcp # kube-controller-manager
+    - 10255/tcp # read-only kubelet API
+    - 30000-32767 # NodePort Services
