@@ -1,25 +1,28 @@
 ---
-tasks:
-  - name: create directory kubelet.service.d
-    file:
-      path: /etc/systemd/system/kubelet.service.d
-      state: directory
-  - name: create directory docker.service.d
-    file:
-      path: mkdir /etc/systemd/system/docker.service.d
-      state: directory
-  - name: copy 20-hetzner-cloud.conf
-    copy:
-      src: kubernetes/20-hetzner-cloud.conf
-      dest: /etc/systemd/system/kubelet.service.d/20-hetzner-cloud.conf
-  - name: copy 00-cgroup-systemd.conf
-    copy:
-      src: kubernetes/00-cgroup-systemd.conf
-      dest: /etc/systemd/system/docker.service.d/00-cgroup-systemd.conf
-  - name: install kubernetes-packages
-    apt:
-      pkg:
-      - docker-ce
-      - kubeadm
-      - kubectl
-      - kubelet
+  - name: "Phase: Setup Kubernetes software"
+    hosts: localhost
+    connection: local 
+    tasks:
+    - name: create directory kubelet.service.d
+      file:
+        path: /etc/systemd/system/kubelet.service.d
+        state: directory
+    - name: create directory docker.service.d
+      file:
+        path: /etc/systemd/system/docker.service.d
+        state: directory
+    - name: copy 20-hetzner-cloud.conf
+      copy:
+        src: ../templates/kubernetes/20-hetzner-cloud.conf
+        dest: /etc/systemd/system/kubelet.service.d/20-hetzner-cloud.conf
+    - name: copy 00-cgroup-systemd.conf
+      copy:
+        src: ../templates/kubernetes/00-cgroup-systemd.conf
+        dest: /etc/systemd/system/docker.service.d/00-cgroup-systemd.conf
+    - name: install kubernetes-packages
+      apt:
+        pkg:
+        - docker-ce
+        - kubeadm
+        - kubectl
+        - kubelet

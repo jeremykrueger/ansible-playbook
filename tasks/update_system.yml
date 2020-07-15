@@ -1,11 +1,11 @@
 ---
-tasks:
-  - name: Update system
-    package:
-      name: "*"
-      update_cache: yes
-      state: latest
-    register: system_updated
-  - name: Reboot
-    reboot:
-    when: system_updated is changed
+  - name: "Phase: Update System"
+    hosts: localhost
+    connection: local 
+    tasks:
+    - name: Update system
+      package:
+        name: "*"
+        update_cache: yes
+        state: latest
+      register: system_updated

@@ -1,11 +1,14 @@
 ---
-tasks:
-  - name: ensure ip forwarding
-    blockinfile:
-      path: /etc/sysctl.conf
-      marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
-      block: |
-        net.bridge.bridge-nf-call-iptables = 1
-        net.ipv4.ip_forward = 1
-  - name: apply sysctl config
-    command: sysctl -p
+  - name: "Phase: Setup Networking"
+    hosts: localhost
+    connection: local 
+    tasks:
+    - name: ensure ip forwarding
+      blockinfile:
+        path: /etc/sysctl.conf
+        marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
+        block: |
+          net.bridge.bridge-nf-call-iptables = 1
+          net.ipv4.ip_forward = 1
+    - name: apply sysctl config
+      command: sysctl -p

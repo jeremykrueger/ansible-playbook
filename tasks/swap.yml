@@ -1,6 +1,10 @@
 ---
-tasks:
-  - name: deactivate swap
-    command: swapoff -a
-  - name: remove swap-partition from fstab
-    command: sed -i '/ swap / s/^/#/' /etc/fstab
+  - name: "Swap"
+    hosts: localhost
+    connection: local 
+    tasks:
+    - name: deactivate swap
+      command: swapoff -a
+    - name: remove swap-partition from fstab
+      command: sed -i '/ swap / s/^/#/' /etc/fstab
+      warn: false
