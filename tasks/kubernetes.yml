@@ -26,5 +26,5 @@
         - kubeadm
         - kubectl
         - kubelet
-    - mame: pull config images
+    - name: pull config images
       command: kubeadm config images pull
