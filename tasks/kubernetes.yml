@@ -26,5 +26,3 @@
         - kubeadm=1.18.5-00
         - kubectl=1.18.5-00
         - kubelet=1.18.5-00
-    - name: pull config images
-      command: kubeadm config images pull
