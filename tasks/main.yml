@@ -1,21 +1,15 @@
 ---
-- import_tasks: networking.yaml
-  tags: bootstrap-network
+- hosts: 127.0.0.1
+  connection: local
 
-- import_tasks: update_system.yml
-  tags: bootstrap-update-system
+- import_playbook: networking.yml
 
-- import_tasks: essential-packages.yml
-  tags: bootstrap-packages
+- import_playbook: update_system.yml
 
-- import_tasks: networking.yaml
-  tags: bootstrap-packages
+- import_playbook: essential-packages.yml
 
-- import_tasks: kubernetes.yaml
-  tags: bootstrap-kubernetes
+- import_playbook: kubernetes.yaml
 
-- import_tasks: firewall.yaml
-  tags: bootstrap-firewall
+- import_playbook: firewall.yaml
 
-- import_tasks: swap.yaml
-  tags: bootstrap-swap
+- import_playbook: swap.yaml
