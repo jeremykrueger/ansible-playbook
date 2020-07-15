@@ -3,11 +3,27 @@
     hosts: localhost
     connection: local 
     tasks:
-    - name: create directory kubelet.service.d
+    - name: add apt-key for "download.docker.com/linux/ubuntu/"
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: add apt-key for "packages.cloud.google.com/apt/"
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+    - name: add repository "docker"
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: add repository "kubernetes"
+      apt_repository:
+        repo: deb http://packages.cloud.google.com/apt/ kubernetes-xenial main
+        state: present
+    - name: create directory "kubelet.service.d"
       file:
         path: /etc/systemd/system/kubelet.service.d
         state: directory
-    - name: create directory docker.service.d
+    - name: create directory "docker.service.d"
       file:
         path: /etc/systemd/system/docker.service.d
         state: directory
@@ -19,7 +35,7 @@
       copy:
         src: ../templates/kubernetes/00-cgroup-systemd.conf
         dest: /etc/systemd/system/docker.service.d/00-cgroup-systemd.conf
-    - name: install kubernetes-packages
+    - name: install packages (kubernetes)
       apt:
         pkg:
         - docker-ce=5:19.03.12~3-0~ubuntu-focal

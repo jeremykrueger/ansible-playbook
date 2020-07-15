@@ -1,0 +1,7 @@
+---
+  - name: "Phase: Reboot system"
+    hosts: localhost
+    connection: local 
+    tasks:
+    - name: reboot
+      command: sudo reboot

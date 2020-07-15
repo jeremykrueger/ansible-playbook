@@ -1,5 +1,5 @@
 ---
-  - name: "Swap"
+  - name: "Phase: Deactivate Swap"
     hosts: localhost
     connection: local 
     tasks:

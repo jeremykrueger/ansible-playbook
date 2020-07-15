@@ -3,16 +3,16 @@
     hosts: localhost
     connection: local 
     tasks:
-    - name: Install packages
+    - name: install packages (firewall)
       apt:
         pkg:
         - firewalld
-    - name: allow ssh
+    - name: add firewall rule - allow ssh
       firewalld:
         service: ssh
         permanent: yes
         state: enabled
-    - name: allow required kubernetes ports
+    - name: add firewall rule - allow required kubernetes ports
       firewalld:
         port: "{{ item }}"
         permanent: yes

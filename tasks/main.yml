@@ -13,4 +13,6 @@
 
   - import_playbook: firewall.yml
 
-  - import_playbook: swap.yml
+  - import_playbook: deactivate_swap.yml
+
+  - import_playbook: reboot_system.yml
