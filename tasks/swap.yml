@@ -7,4 +7,4 @@
       command: swapoff -a
     - name: remove swap-partition from fstab
       command: sed -i '/ swap / s/^/#/' /etc/fstab
-      warn: false
+        warn: false
