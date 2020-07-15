@@ -1,2 +1,2 @@
-- src: git@gitlab.com:jkr.projects/ansible/ansible-bootstrap-role.git
+- src: https://github.com/jeremykrueger/ansible-bootstrap-role.git
   scm: git
