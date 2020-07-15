@@ -4,5 +4,5 @@ packages:
   - git
 runcmd:
   - sudo pip3 install ansible
-  - cd /root/ && sudo git clone https://hcloud-provisioning:pJ15nn8ZQAZzbAGu8wam@gitlab.com/jkr.projects/clusters/ansible/ansible-playbook.git && sudo git -C ansible-playbook/ checkout release
+  - cd /root/ && sudo git clone https://hcloud-provisioning:pJ15nn8ZQAZzbAGu8wam@gitlab.com/jkr.projects/clusters/ansible/ansible-playbook.git && sudo git -C ansible-playbook/ checkout kubernetes-version
   - sudo ansible-playbook --connection=local --inventory 127.0.0.1, ansible-playbook/tasks/main.yml
