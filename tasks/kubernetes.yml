@@ -38,7 +38,7 @@
     - name: install packages (kubernetes)
       apt:
         pkg:
-        - docker-ce=5:19.03.12~3-0~ubuntu-focal
-        - kubeadm=1.18.5-00
-        - kubectl=1.18.5-00
-        - kubelet=1.18.5-00
+        - docker-ce
+        - kubeadm
+        - kubectl
+        - kubelet
