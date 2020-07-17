@@ -6,6 +6,7 @@
     - name: install packages
       apt:
         pkg:
+        - firewalld
         - htop
         - vim
         - wget

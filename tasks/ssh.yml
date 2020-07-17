@@ -1,0 +1,21 @@
+---
+  - name: "Phase: SSH Configuration"
+    hosts: localhost
+    connection: local 
+    tasks:
+    - name: Setup alternate SSH port
+      lineinfile:
+        dest: "/etc/ssh/sshd_config"
+        regexp: "^Port"
+        line: "Port 2222"
+    - name: Restart sshd
+      service:
+        name: sshd
+        state: restarted
+    - name: add firewall rule - allow ssh port 2222
+      firewalld:
+        port: "{{ item }}"
+        permanent: yes
+        state: enabled
+      loop:
+        - 2222/tcp
