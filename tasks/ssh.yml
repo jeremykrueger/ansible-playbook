@@ -3,31 +3,31 @@
     hosts: localhost
     connection: local 
     tasks:
-    - name: configure ssh - setup alternate SSH port 2222
+    - name: configure alternate SSH port 2222
       lineinfile:
         dest: "/etc/ssh/sshd_config"
         regexp: "^Port"
         line: "Port 2222"
-    - name: configure ssh - allow only root
+    - name: allow only root
       lineinfile:
         dest: "/etc/ssh/sshd_config"
         regexp: "^AllowUsers"
-        line: "root"
-    - name: configure ssh - allow only ssh-ed25519 host-key
+        line: "AllowUsers root"
+    - name: allow only ssh-ed25519 host-key
       lineinfile:
         dest: "/etc/ssh/sshd_config"
         regexp: "^HostbasedAcceptedKeyTypes"
-        line: "ssh-ed25519*"
-    - name: configure ssh - allow only ssh-ed25519 pub-key
+        line: "HostbasedAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-ed25519"
+    - name: allow only ssh-ed25519 pub-key
       lineinfile:
         dest: "/etc/ssh/sshd_config"
         regexp: "^PubkeyAcceptedKeyTypes"
-        line: "ssh-ed25519*"
+        line: "PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-ed25519"
     - name: Restart sshd
       service:
         name: sshd
         state: restarted
-    - name: add firewall rule - allow ssh port 2222
+    - name: firewall - allow ssh port 2222
       firewalld:
         port: "{{ item }}"
         permanent: yes
