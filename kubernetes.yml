@@ -29,11 +29,11 @@
         state: directory
     - name: copy 20-hetzner-cloud.conf
       copy:
-        src: ../templates/kubernetes/20-hetzner-cloud.conf
+        src: templates/kubernetes/20-hetzner-cloud.conf
         dest: /etc/systemd/system/kubelet.service.d/20-hetzner-cloud.conf
     - name: copy 00-cgroup-systemd.conf
       copy:
-        src: ../templates/kubernetes/00-cgroup-systemd.conf
+        src: templates/kubernetes/00-cgroup-systemd.conf
         dest: /etc/systemd/system/docker.service.d/00-cgroup-systemd.conf
     - name: install packages (kubernetes)
       apt:
