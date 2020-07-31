@@ -1,0 +1,37 @@
+---
+  - name: "Phase: Add Volumes"
+    hosts: localhost
+    connection: local 
+    vars:
+      hcloud_token: !vault |
+                    $ANSIBLE_VAULT;1.1;AES256
+                    62326633666538633933613635306334376364343932363864663833333337393766356433343038
+                    3762653162616231616230636236626332623236633364380a623561356266653733343266616337
+                    36613831663738353530313435633533333964373733323439393836626333396364643635623836
+                    6439326361663635360a393031626565653736323563313764303434663565646137633461383138
+                    31656365366439333061336435356437333536306266386534616539626438383538386365396337
+                    64353431633065383531626638313136306532656239626165363166663635353765653964313238
+                    63656237306430316366363830633965336233386230363461303736656563303364373266663263
+                    65666637323962633034
+    tasks:
+    - name: install hcloud python library
+      pip:
+        name: hcloud
+    - name: add StorageOS volume
+      hcloud_volume:
+        api_token: "{{ hcloud_token }}"
+        name: storageos-volume-{{ lookup('password', '/tmp/passwordfile chars=ascii_letters') }}
+        server: "{{ ansible_hostname }}"
+        format: xfs
+        size: 20
+        state: present
+        labels:
+          node: "{{ ansible_hostname }}"
+      register: storageos_volume
+    - name: mount StorageOS volume
+      mount:
+        src: /dev/disk/by-id/scsi-0HC_Volume_{{ storageos_volume.hcloud_volume.id }}
+        path: "/var/lib/storageos/data/dev0"
+        fstype: xfs
+        opts: "discard,nofail,defaults 0 0"
+        state: present

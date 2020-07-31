@@ -35,6 +35,8 @@
       copy:
         src: templates/kubernetes/00-cgroup-systemd.conf
         dest: /etc/systemd/system/docker.service.d/00-cgroup-systemd.conf
+    - name:
+      command: sudo systemctl daemon-reload
     - name: install packages (kubernetes)
       apt:
         pkg:
