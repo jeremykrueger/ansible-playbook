@@ -38,7 +38,7 @@
     - name: add StorageOS etcd volume
       hcloud_volume:
         api_token: "{{ hcloud_token }}"
-        name: storageos-volume-{{ lookup('password', '/tmp/passwordfile chars=ascii_letters') }}
+        name: storageos-etcd-volume-{{ lookup('password', '/tmp/passwordfile chars=ascii_letters') }}
         server: "{{ ansible_hostname }}"
         format: xfs
         size: 10
