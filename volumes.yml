@@ -35,3 +35,21 @@
         fstype: xfs
         opts: "discard,nofail,defaults 0 0"
         state: present
+    - name: add StorageOS etcd volume
+      hcloud_volume:
+        api_token: "{{ hcloud_token }}"
+        name: storageos-volume-{{ lookup('password', '/tmp/passwordfile chars=ascii_letters') }}
+        server: "{{ ansible_hostname }}"
+        format: xfs
+        size: 10
+        state: present
+        labels:
+          node: "{{ ansible_hostname }}"
+      register: storageos_etcd_volume
+    - name: mount StorageOS etcd volume
+      mount:
+        src: /dev/disk/by-id/scsi-0HC_Volume_{{ storageos_etcd_volume.hcloud_volume.id }}
+        path: "/mnt/storageos-etcd-volume"
+        fstype: xfs
+        opts: "discard,nofail,defaults 0 0"
+        state: present
